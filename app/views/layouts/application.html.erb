@@ -6,9 +6,11 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= render 'layouts/shim'%>
   </head>
 
   <body>
+    <%= render 'layouts/header'%>
     <header class="navbar navbar-fixed-top navbar-inverse">
     <div class="container">
       <%= link_to "sample app", '#', id: "logo" %>
@@ -23,5 +25,19 @@
   </header>
   <div class="container">
     <%= yield %>
+    <%= render 'layouts/footer' %>
   </body>
 </html>
+
+
+
+
+<!--
+render 'layouts/shim'
+⏫ この行では app/views/layouts/_shim.html.erb というファイルを探してその内容を評価して結果をビューに挿入してます
+はテンプレート内でRubyの式を評価するための埋め込みRuby記法であることを思い出してください。
+評価した結果がテンプレートに挿入されます。
+ファイル名 _shim.html.erb の先頭にあるアンダースコアに注目してください
+このアンダースコアはパーシャルで使う普遍的な命名規約であり、
+一目見ただけでディレクトリ中の全てのパーシャルを識別することが可能です。
+>
