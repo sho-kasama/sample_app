@@ -229,3 +229,19 @@ input {
     color: $state-danger-text;
   }
 }
+
+/*  forms ( ユーザー登録フォームのcss  */
+
+input, textarea, select, .uneditable-input {
+    border: 1px solid #bbb;
+    width: 100%;
+    margin-bottom: 10px;
+    @include box_sizing;
+}
+
+input {
+    height: auto !important;
+}
+
+
+
