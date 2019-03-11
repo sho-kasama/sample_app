@@ -204,7 +204,7 @@ aside {
 /* forms */
 
 input, textarea, select, .uneditable-input {
-    border: 1px solid #bbb;
+    border: 5px solid #bbb;
     width: 100%;
     margin-bottom: 15px;
     @include box_sizing;
@@ -214,7 +214,6 @@ input {
     height: auto !important;
 }
 
-/* forms */
 #error_explanation {
   color: red;
   ul {
@@ -230,18 +229,17 @@ input {
   }
 }
 
-/*  forms ( ユーザー登録フォームのcss  */
-
-input, textarea, select, .uneditable-input {
-    border: 1px solid #bbb;
-    width: 100%;
+.checkbox {
+    margin-top: 10px;
     margin-bottom: 10px;
-    @include box_sizing;
+    span {
+        margin-left: 20px;
+        font-weight: 10px;
+    }
 }
 
-input {
-    height: auto !important;
+
+#session_remember_me {
+    width: auto;
+    margin-left: 0;
 }
-
-
-
