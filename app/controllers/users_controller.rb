@@ -1,10 +1,15 @@
 class UsersController < ApplicationController
 
-
-  before_action :logged_in_user, only: [:edit, :update]
+  before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
   before_action :correct_user, only: [:edit, :update]
+  before_action :admin_user,     only: :destroy
+  # beforeフィルターでdestroyアクションを管理者だけに限定する
   # beforeフィルターのbefore_actionメソッドを使って何らかの処理が実行される直前に特定のメソットを実行する仕組み
   # 今回はユーザーにログインを要求するために,編集か更新しようとすると/login 画面に飛ぶように設定する
+
+  def index
+    @users = User.paginate(page: params[:page])
+  end
 
   def show
     @user = User.find(params[:id])
@@ -29,8 +34,8 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    if @user.update(user_params)
-      flash[:success] = "Profile updated"
+    if @user.update_attributes(user_params)
+      flash[:success] = "ユーザー情報を更新しました"
       redirect_to @user
       # 更新に成功した場合を扱う
     else
@@ -40,6 +45,12 @@ class UsersController < ApplicationController
 
   def edit 
     @user = User.find(params[:id])
+  end
+
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "ユーザを削除しました"
+    redirect_to users_url
   end
 
   private 
@@ -64,5 +75,10 @@ class UsersController < ApplicationController
     def correct_user
       @user = User.find(params[:id])
       redirect_to(root_url) unless current_user?(@user)
+    end
+
+  # 管理者かどうかを確認
+    def admin_user
+      redirect_to(root_url) unless current_user.admin?
     end
 end
