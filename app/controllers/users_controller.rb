@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 
   before_action :logged_in_user, only: [:edit, :update]
   before_action :correct_user, only: [:edit, :update]
+  before_create :create_activation_digest
   # beforeフィルターのbefore_actionメソッドを使って何らかの処理が実行される直前に特定のメソットを実行する仕組み
   # 今回はユーザーにログインを要求するために,編集か更新しようとすると/login 画面に飛ぶように設定する
 
@@ -65,4 +66,13 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
       redirect_to(root_url) unless current_user?(@user)
     end
+
+  # メソッド参照
+    def create_activation_user
+      # 有効化トークンとダイジェストを作成及び代入する
+    end
+
+
+
+
 end
