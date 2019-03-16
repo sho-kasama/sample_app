@@ -48,10 +48,8 @@ class UsersController < ApplicationController
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
 
-  # before アクション
-
-
-  # ログイン済みユーザーか確認
+    # before アクション
+    # ログイン済みユーザーか確認
     def logged_in_user
       unless logged_in?
         store_location
@@ -60,9 +58,24 @@ class UsersController < ApplicationController
       end
     end
 
-  # 正しいユーザーかどうか確認
+    # 正しいユーザーかどうか確認
     def correct_user
       @user = User.find(params[:id])
       redirect_to(root_url) unless current_user?(@user)
     end
+
+    # メールアドレスを小文字にする
+    def downcase_email
+      self.email = email.downcase
+    end
+
+    # 有効化トークンとダイジェストを作成及び代入する
+    def create_activation_digest
+      self.activation_token  = User.new_token
+      self.activation_digest = User.digest(activation_token)
+    end
+
+
+
+
 end

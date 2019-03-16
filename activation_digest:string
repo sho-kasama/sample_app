@@ -1,0 +1,2 @@
+      invoke  active_record
+   identical    db/migrate/20190314130822_add_activation_to_users.rb
