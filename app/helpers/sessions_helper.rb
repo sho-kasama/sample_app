@@ -18,7 +18,7 @@ module SessionsHelper
     end
 
 
-    # 記憶トークンcookiesに対応するユーザーを返す
+    # 記憶トークンcookiesに対応するユーザーを返す, 現在ログイン中のユーザーを返す(いる場合)
     def current_user
       if (user_id = session[:user_id])
         @current_user ||= User.find_by(id: user_id)

@@ -6,8 +6,13 @@ class UsersController < ApplicationController
   # beforeフィルターのbefore_actionメソッドを使って何らかの処理が実行される直前に特定のメソットを実行する仕組み
   # 今回はユーザーにログインを要求するために,編集か更新しようとすると/login 画面に飛ぶように設定する
 
+  def index
+    @users = User.where(activated: FILL_IN).paginate(page: params[:page])
+  end
+
   def show
     @user = User.find(params[:id])
+    redirect_to root_url and return unless FILL_IN
   end
 
 
@@ -18,9 +23,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      log_in @user
-      flash[:success] = "Welcome to the Sample App!"
-      redirect_to @user
+      @user.send_activation_email
+      flash[:info] = "Please check your email to activate your account."
+      redirect_to root_url
       # 上記のコードは redirect_to user_url(@user) と等価になります
     else 
       render 'new'
